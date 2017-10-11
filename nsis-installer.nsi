@@ -1,40 +1,40 @@
-; cwRsync Installer for SFCTA
+; tubRsync Installer for SFCTA
 ; Billy Charlton <billy@okbecause.com>
 ; --------------------------
 
-!define VERSION "1.0.0"
+!define VERSION "1.0.1"
 !define VERSION_LONG "${VERSION}.0"
 
-!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\cwRsyncUnofficial"
+!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\tubRsyncUnofficial"
 
 ; ------------
 ; use "Modern" UI
 ;!define MUI_ICON "console.ico"
 !include "MUI2.nsh"
 !insertmacro MUI_LANGUAGE "English"
-!define MUI_PAGE_HEADER_TEXT "cwRsync"
+!define MUI_PAGE_HEADER_TEXT "tubRsync"
 
 !addincludedir "."
 !addplugindir "."
 
 ; The name of the installer
-Name "cwRsync ${VERSION}"
+Name "tubRsync ${VERSION}"
 
 ; The file to write
-OutFile "cwRsync Installer v${VERSION}.exe"
+OutFile "tubRsync Installer v${VERSION}.exe"
 
 ; The default installation directory
-InstallDir "C:\cwRsync"
+InstallDir "C:\rsync"
 
 ; Registry key to check for directory (so if you install again, it will
 ; overwrite the old one automatically)
-InstallDirRegKey HKLM "Software\cwRsyncUnofficial" "InstallPath"
+InstallDirRegKey HKLM "Software\tubRsyncUnofficial" "InstallPath"
 
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
 
 VIProductVersion "${VERSION_LONG}"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "cwRsyncUnofficial"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "tubRsyncUnofficial"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION_LONG}"
 
 ;--------------------------------
@@ -50,7 +50,7 @@ VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION_LONG}"
 
 ;--------------------------------
 ; Main installer tasks
-Section "cwRsync (required)"
+Section "tubRsync (required)"
 
   SectionIn RO
   SetOutPath $INSTDIR
@@ -60,14 +60,14 @@ Section "cwRsync (required)"
   File *.exe
 
   ; Write the installation path into the registry
-  WriteRegStr HKLM "Software\cwRsyncUnofficial" "InstallPath" "$INSTDIR"
+  WriteRegStr HKLM "Software\tubRsyncUnofficial" "InstallPath" "$INSTDIR"
 
   ; Write the uninstall keys
-  WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "DisplayName" "cwRsync Uninstaller"
+  WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "DisplayName" "tubRsync Uninstaller"
   WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninstall.exe"
   WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${VERSION_LONG}"
-  WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "Publisher" "cwRsync Unofficial"
-  WriteRegDWORD HKLM "${PRODUCT_UNINST_KEY}" "EstimatedSize" "100000"
+  WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "Publisher" "tubRsync Unofficial"
+  WriteRegDWORD HKLM "${PRODUCT_UNINST_KEY}" "EstimatedSize" "50000"
   WriteRegDWORD HKLM "${PRODUCT_UNINST_KEY}" "NoModify" 1
   WriteRegDWORD HKLM "${PRODUCT_UNINST_KEY}" "NoRepair" 1
   WriteUninstaller "uninstall.exe"
@@ -93,8 +93,8 @@ Section "Uninstall"
   Call un.RemoveFromPath
 
   ; Remove registry keys
-  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\cwRsyncUnofficial"
-  DeleteRegKey HKLM "Software\cwRsyncUnofficial"
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\tubRsyncUnofficial"
+  DeleteRegKey HKLM "Software\tubRsyncUnofficial"
 
   ; Remove files and uninstaller
   Delete "$INSTDIR\*.dll"
