@@ -1,40 +1,40 @@
-; tubRsync Installer for SFCTA
+; Rsync Installer for SFCTA
 ; Billy Charlton <billy@okbecause.com>
 ; --------------------------
 
 !define VERSION "1.0.1"
 !define VERSION_LONG "${VERSION}.0"
 
-!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\tubRsyncUnofficial"
+!define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\RsyncUnofficial"
 
 ; ------------
 ; use "Modern" UI
 ;!define MUI_ICON "console.ico"
 !include "MUI2.nsh"
 !insertmacro MUI_LANGUAGE "English"
-!define MUI_PAGE_HEADER_TEXT "tubRsync"
+!define MUI_PAGE_HEADER_TEXT "Rsync"
 
 !addincludedir "."
 !addplugindir "."
 
 ; The name of the installer
-Name "tubRsync ${VERSION}"
+Name "Rsync ${VERSION}"
 
 ; The file to write
-OutFile "tubRsync Installer v${VERSION}.exe"
+OutFile "Git-Fat Rsync Installer v${VERSION}.exe"
 
 ; The default installation directory
 InstallDir "C:\rsync"
 
 ; Registry key to check for directory (so if you install again, it will
 ; overwrite the old one automatically)
-InstallDirRegKey HKLM "Software\tubRsyncUnofficial" "InstallPath"
+InstallDirRegKey HKLM "Software\RsyncUnofficial" "InstallPath"
 
 ; Request application privileges for Windows Vista
 RequestExecutionLevel admin
 
 VIProductVersion "${VERSION_LONG}"
-VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "tubRsyncUnofficial"
+VIAddVersionKey /LANG=${LANG_ENGLISH} "ProductName" "RsyncUnofficial"
 VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION_LONG}"
 
 ;--------------------------------
@@ -50,7 +50,7 @@ VIAddVersionKey /LANG=${LANG_ENGLISH} "FileVersion" "${VERSION_LONG}"
 
 ;--------------------------------
 ; Main installer tasks
-Section "tubRsync (required)"
+Section "Rsync (required)"
 
   SectionIn RO
   SetOutPath $INSTDIR
@@ -60,13 +60,13 @@ Section "tubRsync (required)"
   File *.exe
 
   ; Write the installation path into the registry
-  WriteRegStr HKLM "Software\tubRsyncUnofficial" "InstallPath" "$INSTDIR"
+  WriteRegStr HKLM "Software\RsyncUnofficial" "InstallPath" "$INSTDIR"
 
   ; Write the uninstall keys
-  WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "DisplayName" "tubRsync Uninstaller"
+  WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "DisplayName" "Rsync Uninstaller"
   WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninstall.exe"
   WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${VERSION_LONG}"
-  WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "Publisher" "tubRsync Unofficial"
+  WriteRegStr HKLM "${PRODUCT_UNINST_KEY}" "Publisher" "Rsync Unofficial"
   WriteRegDWORD HKLM "${PRODUCT_UNINST_KEY}" "EstimatedSize" "50000"
   WriteRegDWORD HKLM "${PRODUCT_UNINST_KEY}" "NoModify" 1
   WriteRegDWORD HKLM "${PRODUCT_UNINST_KEY}" "NoRepair" 1
@@ -93,8 +93,8 @@ Section "Uninstall"
   Call un.RemoveFromPath
 
   ; Remove registry keys
-  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\tubRsyncUnofficial"
-  DeleteRegKey HKLM "Software\tubRsyncUnofficial"
+  DeleteRegKey HKLM "Software\Microsoft\Windows\CurrentVersion\Uninstall\RsyncUnofficial"
+  DeleteRegKey HKLM "Software\RsyncUnofficial"
 
   ; Remove files and uninstaller
   Delete "$INSTDIR\*.dll"
