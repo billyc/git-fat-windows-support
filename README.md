@@ -42,16 +42,14 @@ Working With an existing Git-Fat Repo
 
 * `git fat push` will push the large file objects to the separate shared storage used by git-fat. Here at VSP we have that set up at...
 
-**Setting up a repo to start using git-fat**
+Setting up a repo to start using git-fat
+========================================
 
-Edit (or create) `.gitattributes` to regard any desired extensions as fat files.
+Edit (or create) `.gitattributes` to regard any desired extensions as fat files. File should follow the example here:
 
-    $ cd path-to-your-repository
-    $ cat >> .gitattributes
     *.png filter=fat -crlf
     *.jpg filter=fat -crlf
     *.gz  filter=fat -crlf
-    ^D
 
 Run `git fat init` to activate the extension. Now add and commit as usual.
 Matched files will be transparently stored externally, but will appear
@@ -76,4 +74,3 @@ look like this:
     remote = your.remote-host.org:/share/fat-store
     sshuser = fat
     
-   
